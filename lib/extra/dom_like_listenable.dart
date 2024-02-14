@@ -151,12 +151,12 @@ class DomLikeListenableState extends State<DomLikeListenable> {
   }
 
   void emit(String name, event) {
-    var _callbacks = _listeners[name];
-    if (_callbacks != null && _callbacks.length > 0) {
-      var _len = _callbacks.length;
-      for (int i = 0; i < _len; i++) {
-        var _cb = _callbacks[i];
-        _cb(event);
+    List<Function>? callbacks = _listeners[name];
+    if (callbacks != null && callbacks.isNotEmpty) {
+      List<Function> callbackCopy = List.from(callbacks);
+
+      for (int i = 0; i < callbackCopy.length; i++) {
+        callbackCopy[i](event);
       }
     }
   }
