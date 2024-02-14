@@ -6,7 +6,7 @@ class DomLikeListenable extends StatefulWidget {
   final WidgetBuilder builder;
 
   DomLikeListenable({
-    Key? key, 
+    Key? key,
     required this.builder,
   }) : super(key: key);
 
@@ -36,6 +36,10 @@ class DomLikeListenableState extends State<DomLikeListenable> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(focusNode);
+    });
+
     super.initState();
   }
 
@@ -65,54 +69,53 @@ class DomLikeListenableState extends State<DomLikeListenable> {
         Offset temp = getBox.localToGlobal(Offset.zero);
         _offsetLeft = temp.dx;
         _offsetTop = temp.dy;
-        
       }
-      FocusScope.of(context).requestFocus(focusNode);
     });
 
     return RawKeyboardListener(
-      focusNode: focusNode,
-      onKey: (event){
-        if(event is RawKeyDownEvent){
-          _onKeyDownEvent(context, event.data.logicalKey);
-        }
-        else if(event is RawKeyUpEvent){
-          _onKeyUpEvent(context, event.data.logicalKey);
-        }
-      },
-      child:Listener(
-        onPointerSignal: (pointerSignal) {
-          if (pointerSignal is PointerScrollEvent) {
-            _onWheel(context, pointerSignal);
+        focusNode: focusNode,
+        onKey: (event) {
+          if (event is RawKeyDownEvent) {
+            _onKeyDownEvent(context, event.data.logicalKey);
+          } else if (event is RawKeyUpEvent) {
+            _onKeyUpEvent(context, event.data.logicalKey);
           }
         },
-        onPointerDown: (PointerDownEvent event) {
-          _onPointerDown(context, event);
-        },
-        onPointerMove: (PointerMoveEvent event) {
-          _onPointerMove(context, event);
-        },
-        onPointerUp: (PointerUpEvent event) {
-          _onPointerUp(context, event);
-        },
-        onPointerCancel: (PointerCancelEvent event) {
-          _onPointerCancel(context, event);
-        },
-        onPointerHover: (PointerHoverEvent event){
-          _onMouseMove(context, event);
-        },
-        child: widget.builder(context),
-      )
-    );
+        child: Listener(
+          onPointerSignal: (pointerSignal) {
+            if (pointerSignal is PointerScrollEvent) {
+              _onWheel(context, pointerSignal);
+            }
+          },
+          onPointerDown: (PointerDownEvent event) {
+            _onPointerDown(context, event);
+          },
+          onPointerMove: (PointerMoveEvent event) {
+            _onPointerMove(context, event);
+          },
+          onPointerUp: (PointerUpEvent event) {
+            _onPointerUp(context, event);
+          },
+          onPointerCancel: (PointerCancelEvent event) {
+            _onPointerCancel(context, event);
+          },
+          onPointerHover: (PointerHoverEvent event) {
+            _onMouseMove(context, event);
+          },
+          child: widget.builder(context),
+        ));
   }
-  void _onKeyDownEvent(BuildContext context, LogicalKeyboardKey event){
+
+  void _onKeyDownEvent(BuildContext context, LogicalKeyboardKey event) {
     //var wpe = WebPointerEvent.fromPointerScrollEvent(context, event);
     emit("keydown", event);
   }
-  void _onKeyUpEvent(BuildContext context, LogicalKeyboardKey event){
+
+  void _onKeyUpEvent(BuildContext context, LogicalKeyboardKey event) {
     //var wpe = WebPointerEvent.fromPointerScrollEvent(context, event);
     emit("keyup", event);
   }
+
   void _onWheel(BuildContext context, PointerScrollEvent event) {
     var wpe = WebPointerEvent.fromPointerScrollEvent(context, event);
 
@@ -131,10 +134,12 @@ class DomLikeListenableState extends State<DomLikeListenable> {
     emit("touchmove", wpe);
     emit("pointermove", wpe);
   }
+
   void _onMouseMove(BuildContext context, PointerHoverEvent event) {
     var wpe = WebPointerEvent.fromMouseMoveEvent(context, event);
     emit("mousemove", wpe);
   }
+
   void _onPointerUp(BuildContext context, PointerUpEvent event) {
     var wpe = WebPointerEvent.fromPointerUpEvent(context, event);
     emit("touchend", wpe);
@@ -242,11 +247,10 @@ class WebPointerEvent {
       wpe.deltaY = event.scrollDelta.dy;
     }
 
-    if(event is PointerMoveEvent || event is PointerHoverEvent) {
+    if (event is PointerMoveEvent || event is PointerHoverEvent) {
       wpe.movementX = event.delta.dx;
       wpe.movementY = event.delta.dy;
     }
-
 
     final EventTouch _touch = EventTouch();
     _touch.pointer = event.pointer;
@@ -255,32 +259,27 @@ class WebPointerEvent {
     _touch.clientX = local.dx;
     _touch.clientY = local.dy;
 
-    wpe.touches.add( _touch );
+    wpe.touches.add(_touch);
     wpe.changedTouches = [_touch];
 
     return wpe;
   }
 
-  factory WebPointerEvent.fromPointerScrollEvent(
-      BuildContext context, PointerScrollEvent event) {
+  factory WebPointerEvent.fromPointerScrollEvent(BuildContext context, PointerScrollEvent event) {
     return convertEvent(context, event);
   }
 
-  factory WebPointerEvent.fromPointerDownEvent(
-      BuildContext context, PointerDownEvent event) {
+  factory WebPointerEvent.fromPointerDownEvent(BuildContext context, PointerDownEvent event) {
     return convertEvent(context, event);
   }
 
-  factory WebPointerEvent.fromPointerMoveEvent(
-      BuildContext context, PointerMoveEvent event) {
+  factory WebPointerEvent.fromPointerMoveEvent(BuildContext context, PointerMoveEvent event) {
     return convertEvent(context, event);
   }
-  factory WebPointerEvent.fromMouseMoveEvent(
-      BuildContext context, PointerHoverEvent event) {
+  factory WebPointerEvent.fromMouseMoveEvent(BuildContext context, PointerHoverEvent event) {
     return convertEvent(context, event);
   }
-  factory WebPointerEvent.fromPointerUpEvent(
-      BuildContext context, PointerUpEvent event) {
+  factory WebPointerEvent.fromPointerUpEvent(BuildContext context, PointerUpEvent event) {
     return convertEvent(context, event);
   }
 
