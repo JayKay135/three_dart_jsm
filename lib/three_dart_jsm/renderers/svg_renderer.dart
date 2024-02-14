@@ -1,6 +1,6 @@
 import 'package:three_dart/three_dart.dart';
-import 'Projector.dart';
-import 'SVGEdgeFinder.dart';
+import './projector.dart';
+import './svg_edge_finder.dart';
 
 extension on Vector4{
   Vector2 toVector2(){
