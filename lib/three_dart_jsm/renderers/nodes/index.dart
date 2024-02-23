@@ -66,6 +66,6 @@ part './inputs/texture_node.dart';
 part './accessors/uv_node.dart';
 part './functions/physical_material_functions.dart';
 part './lights/light_context_node.dart';
-part './functions/bsd_fs.dart';
+part './functions/bsdfs.dart';
 part './display/color_space_node.dart';
 part './core/array_input_node.dart';

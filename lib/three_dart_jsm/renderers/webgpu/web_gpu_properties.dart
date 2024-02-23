@@ -1,28 +1,28 @@
-part of three_webgpu;
+// part of three_webgpu;
 
-class WebGPUProperties {
-  late WeakMap properties;
+// class WebGPUProperties {
+//   late WeakMap properties;
 
-  WebGPUProperties() {
-    this.properties = new WeakMap();
-  }
+//   WebGPUProperties() {
+//     this.properties = new WeakMap();
+//   }
 
-  get(object) {
-    var map = this.properties.get(object);
+//   get(object) {
+//     var map = this.properties.get(object);
 
-    if (map == undefined) {
-      map = {};
-      this.properties.set(object, map);
-    }
+//     if (map == undefined) {
+//       map = {};
+//       this.properties.set(object, map);
+//     }
 
-    return map;
-  }
+//     return map;
+//   }
 
-  remove(object) {
-    this.properties.delete(object);
-  }
+//   remove(object) {
+//     this.properties.delete(object);
+//   }
 
-  dispose() {
-    this.properties = new WeakMap();
-  }
-}
+//   dispose() {
+//     this.properties = new WeakMap();
+//   }
+// }

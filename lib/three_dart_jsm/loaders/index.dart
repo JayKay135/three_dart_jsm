@@ -16,7 +16,7 @@ import '../curves/index.dart';
 export './gltf/index.dart';
 
 part './lut_cube_loader.dart';
-part './tff_loader.dart';
+part './ttf_loader.dart';
 part './typr_loader.dart';
 part './obj_loader.dart';
 part './rgbe_loader.dart';

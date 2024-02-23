@@ -13,8 +13,7 @@ dependencies:
     sdk: flutter
 
   three_dart:
-    git:
-      url: https://github.com/JayKay135/three_dart.git
+    path: C:\Users\janko\Documents\Flutter Projects\three_dart
 
   flutter_gl: ^0.0.21
   typr_dart: ^0.0.2
@@ -22,10 +21,6 @@ dependencies:
   universal_html: ^2.0.8
   image: ^4.1.7
   archive: ^3.3.0
-
-dependency_overrides:
-  three_dart:
-    path: ../three_dart
 
 dev_dependencies:
   flutter_test:

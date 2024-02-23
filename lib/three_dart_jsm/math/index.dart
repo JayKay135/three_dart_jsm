@@ -6,4 +6,4 @@ import 'package:three_dart/three_dart.dart';
 part './mesh_surface_sampler.dart';
 part './obb.dart';
 part './capsule.dart';
-part './octre.dart';
+part './octree.dart';

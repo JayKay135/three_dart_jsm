@@ -1,19 +1,19 @@
-part of three_webgpu;
+// part of three_webgpu;
 
-class WebGPUStorageBuffer extends WebGPUBinding {
-  late int usage;
-  late dynamic attribute;
-  late dynamic bufferGPU;
+// class WebGPUStorageBuffer extends WebGPUBinding {
+//   late int usage;
+//   late dynamic attribute;
+//   late dynamic bufferGPU;
 
-  WebGPUStorageBuffer(name, attribute) : super(name) {
-    this.type = GPUBindingType.StorageBuffer;
+//   WebGPUStorageBuffer(name, attribute) : super(name) {
+//     this.type = GPUBindingType.StorageBuffer;
 
-    this.usage = GPUBufferUsage.Uniform |
-        GPUBufferUsage.Vertex |
-        GPUBufferUsage.Storage |
-        GPUBufferUsage.CopyDst;
+//     this.usage = GPUBufferUsage.Uniform |
+//         GPUBufferUsage.Vertex |
+//         GPUBufferUsage.Storage |
+//         GPUBufferUsage.CopyDst;
 
-    this.attribute = attribute;
-    this.bufferGPU = null; // set by the renderer
-  }
-}
+//     this.attribute = attribute;
+//     this.bufferGPU = null; // set by the renderer
+//   }
+// }
